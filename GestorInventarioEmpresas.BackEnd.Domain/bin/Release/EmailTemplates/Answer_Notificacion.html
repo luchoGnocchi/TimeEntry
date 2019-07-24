@@ -1,0 +1,51 @@
+<html>
+<head> 
+</head>
+
+<body>
+    Hola <strong>{{NombreUsuarioPregunta}}</strong>:
+    <br />
+    <br />
+
+    Queremos informarle que <strong>{{PropietarioTarea}}</strong> ha respondido su pregunta a la tarea <strong>{{NombreTarea}}</strong>.
+
+    <br />
+    <br />
+    <hr />
+    {{FechaHoraPregunta}} <strong>{{NombreUsuarioPregunta}}</strong><i> preguntó</i>
+    <br />
+    {{Pregunta}}
+    <br />
+    <br />
+    {{FechaHoraRespuesta}} <strong>{{PropietarioTarea}}</strong><i> respondió</i>
+    <br />
+    {{Respuesta}}
+    <hr />
+    <br />
+
+    Si el propietario de la tarea actualiza la respuesta a la pregunta usted será notificado nuevamente.
+
+    <br />
+    <br />
+
+    Para ver los detalles de la tarea has clic <a href="{{TareaUrl}}" target="_top">aquí</a>
+
+    <br />
+    <br />
+
+    Saludos,
+    <br />
+    <br />
+
+    Equipo MiTarea
+    <br />
+    Cualquier consulta comúnicate con nosotros por correo <a href="mailto:{{MiTareaMail}}" target="_top">{{MiTareaMail}}</a>
+    <br />
+    MiTarea - Plataforma para solicitar servicios | www.mitareaservices.com
+    <br />
+    Trabajamos para que la solución de tus problemas sea más rápida, sencilla y de calidad
+    <br />
+    <br />
+    <small>Este correo fue enviado el {{FechaEnvioCorreo}} al usuario que realiza la pregunta ({{NombreUsuarioPregunta}}) y al propietario de la tarea ({{PropietarioTarea}})</small>
+</body>
+</html>

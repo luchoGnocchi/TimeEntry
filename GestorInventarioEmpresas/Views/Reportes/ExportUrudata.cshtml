@@ -1,0 +1,65 @@
+﻿ 
+<div class="panel panel-border panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+        Exportación de horas hacia Urudata
+        </h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-4 ">
+                <div class="input-group date" disabled="disabled">
+                    <input type="text" class="form-control" id="pikerMounth" readonly><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <button type="button" id="btnExportar" class="btn btn-success waves-effect waves-light m-b-5"><i class="fa fa-save"></i>  Generar Reporte</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script language="javascript">
+
+        $(document).ready(function () {
+            var d = new Date();
+            var strDate = ("0" + (d.getDate())).slice(-2) + '-' +
+                    ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+
+            $("#pikerMounth").val(strDate);
+      $('.input-group').datepicker({
+          format: 'dd-mm-yyyy',
+          startView: 1,
+          minViewMode: 1,
+          maxViewMode: 2,
+          language: "es",
+          orientation: "top left",
+          autoclose: true,
+          toggleActive: true
+      });
+       
+     
+      addCommonListener({
+          selector: '#btnExportar',
+          callBack: function (event) {
+              @*BlockUIManager.block();
+              $.ajax({
+                  url: "/Reportes/ExportXML",
+                  data: { dateString: $("#pikerMounth").val() },
+                  success: function () {
+                   window.location = '@Url.Action("DownloadAttachment", "PostDetail", new { dateString= 1 })';
+                  },
+
+              }).don+e(function () {
+                  BlockUIManager.unblock();
+              });*@
+        var MounthRepo=$("#pikerMounth").val();
+       window.location.href="/Reportes/ExportXML?dateString="+MounthRepo;           }
+      });
+
+        });
+
+    </script>
+}

@@ -1,0 +1,174 @@
+﻿@model IEnumerable<GestorInventarioEmpresas.Models.Users_in_Role_ViewModel>
+<div class="container">
+    <div class="panel panel-border panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Usuarios
+                <a href="@Url.Action("CreateUser", "Manage")" class="btn btn-primary waves-effect waves-light pull-right">
+
+                    <span>
+                        <strong>Agregar</strong>
+                    </span>  <i class="fa fa-plus"></i>
+                </a>
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            <table class="table  table-striped table-bordered" id="TablaUsuarios" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Username)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Role)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Username)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Role)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("EditUser","Manage", new { id = item.Id })"><i class="fa fa-edit"></i></a>
+                                <a href="@Url.Action("DetailsUser","Manage", new { id = item.Id })"><i class="fa fa-search"></i></a>
+                                <a onclick="preguntarEliminacionUsuario(this)" title="Eliminar Usuario" data-Id="@item.Id" data-usuario="@item.Username"><i class="fa fa-trash"></i></a>
+                                <a onclick="preguntarRestablecerContraseña(this)" title="Restablecer contraseña" data-Id="@item.Id" data-usuario="@item.Username"><i class="fa fa-undo"></i></a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+            @section scripts{
+<script>
+        @*function preguntarEliminacionUsuario(element) {
+
+            swal({
+                title: 'Eliminación',
+                text: "Estas seguro que desea eliminar el Usuario:" + $(element).data('usuario'),
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, eliminarlo!'
+            }), function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("DeleteUser")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { id: $(element).data('id') },
+                        dataType: "json"
+                    });
+                }
+            }           // The function returns the product of p1 and p2
+        }*@
+    function preguntarEliminacionUsuario(element) {
+        swal({
+            title: 'Eliminación',
+            text: "Estas seguro que desea eliminar el Usuario:" + $(element).data('usuario'),
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminarlo!'
+        }, function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("DeleteUser", "Manage")',
+                    contentType: "application/json; charset=utf-8",
+                    data: { id: $(element).data('id') },
+                    dataType: "json",
+                    success: function () {
+                        location.reload();
+                    }
+                })
+                $('#showSweetAlert').modal('toggle');
+                swal.close()
+            } else {
+                swal.close()
+            }
+        })
+
+    }
+
+
+
+
+        function preguntarRestablecerContraseña(element) {
+            swal({
+                title: 'Restablecer contraseña',
+                text: "Estas seguro que desea Restablecer contraseña del Usuario:" + $(element).data('usuario'),
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, restablecer!'
+            }, function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("ResetPasswordUserAsync", "Manage")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { id: $(element).data('id') },
+                        dataType: "json",
+                        success: function () {
+                            location.reload();
+                        }
+                    }) 
+                    
+                } else {
+                    swal.close()
+                }
+            })
+
+        }
+        $(function () {
+            $("#TablaUsuarios").DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });        });
+
+</script>
+            }

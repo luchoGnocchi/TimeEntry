@@ -1,0 +1,147 @@
+﻿
+@model GestorInventarioEmpresas.BackEnd.Domain.Entities.Proyect
+
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h3 class="panel-title">Crear Proyecto</h3></div>
+            <div class="panel-body">
+                <div class="form">
+                    <form class="cmxform form-horizontal tasi-form" id="commentForm" method="get" action="#" novalidate="novalidate">
+                        <div class="form-group">
+                            <label for="cname" class="control-label col-lg-2">Nombre (requerido)</label>
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cname" class="control-label col-lg-2">Código (requerido)</label>
+                            <div class="col-lg-10">
+                                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <table class="table  table-striped table-bordered" id="TableCompanies" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:20px">
+                                                <input type="checkbox" class="checkbox" id="checkboxAll" onclick="CheckAll()">
+                                            </th>
+                                            <th>
+                                                <label> Todos</label>
+                                            </th>
+                                        </tr>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success waves-effect waves-light" onclick="CrearProyecto()">Guardar</button>
+                                <button class="btn btn-default waves-effect" type="button">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div> <!-- .form -->
+            </div> <!-- panel-body -->
+        </div> <!-- panel -->
+    </div> <!-- col -->
+
+</div> <!-- End row -->
+
+
+ 
+<div>
+    @Html.ActionLink("Volver atras", "Index")
+</div>
+@section scripts{
+    <script language="javascript">
+        $(document).ready(function () {
+            $("#TableCompanies").DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "ordering": true,
+                "ajax": { "url": "getAllCompanies", "dataSrc": "" },
+                "processing": false,
+                "serverSide": false,
+                columns: [
+                    {
+                        data: null, render: function (data, type, row, meta) {
+                            return '<input type="checkbox" class="checkbox" onclick="ValidarCheckAll()">';
+                        }
+                    },
+                    { data: 'Name' }],
+            });
+        });
+
+        function CheckAll() {
+            var enable = $('#TableCompanies .checkbox');
+            enable.prop('checked', $("#checkboxAll").is(':checked'));
+        }
+        function ValidarCheckAll() {
+            var enable = $('#checkboxAll');
+            $('.checkbox').each(function () {
+                if (!$(this).is(":checked")) {
+                    enable.prop('checked', false);
+                }
+            });
+
+        }
+        function ObtenerDataDeGrillaLaminabilidad() {
+            var datosChekeadosEnGrilla = $("#TableCompanies  tbody input[type='checkbox']:checked");
+            var datosTotalesYaDepurados = [];
+            var tabla = $("#TableCompanies").DataTable();
+            $.each(datosChekeadosEnGrilla, function (index, value) {
+                datosTotalesYaDepurados.push(tabla.row($(value).closest('tr')).data());
+            });
+
+            return datosTotalesYaDepurados;
+        }
+
+        function CrearProyecto() {
+            $.ajax({
+                url: "Create",
+                type: "POST",
+                data: {
+                    Name: $("#Name").val(),
+                    Code:$("#Code").val(),
+                    Companies: ObtenerDataDeGrillaLaminabilidad(),
+                    Tasks: null
+                },
+                success: function (result) {
+                    if (result!= "Exito") location.reload();
+                    else window.location.href = "/Proyects/";
+                }
+            });
+        }
+    </script>
+
+}

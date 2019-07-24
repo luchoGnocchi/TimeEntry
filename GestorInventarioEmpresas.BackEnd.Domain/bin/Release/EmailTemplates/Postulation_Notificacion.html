@@ -1,0 +1,58 @@
+<html>
+    <head>
+		<style>
+			table {
+				border: 1px solid;				
+			}			
+			th, td {
+				text-align: left;
+				border: 1px solid;
+			}	
+		</style>
+    </head>
+
+    <body>
+        Hola <strong>{{PropietarioTarea}}</strong>:
+		<br />
+		<br />
+
+        Nos complace informarle que <strong>{{NombrePostulante}}</strong> se ha postulado correctamente a su tarea <strong>{{NombreTarea}}</strong> con la siguiente oferta:
+
+		<br />
+		<br />
+		<table cellpadding="3">
+			<thead>
+                <tr>
+                    <th>Oferta</th>
+                    <th>Descripción</th>
+                    <th>Fecha postulación</th>
+                </tr>
+            </thead>
+			<tbody>				
+			    <tr><td>{{PostulacionOferta}}</td><td>{{PostulacionDescription}}</td><td>{{PostulacionFechaHora}}</td></tr>			
+			</tbody>
+		</table>
+		<br/>						
+		<br />
+
+        Para ver los detalles de la tarea has clic <a href="{{TareaUrl}}" target="_top">aquí</a>
+
+        <br />
+        <br />
+
+		Saludos,
+		<br />
+		<br />
+
+		Equipo MiTarea
+		<br />
+        Cualquier consulta comúnicate con nosotros por correo <a href="mailto:{{MiTareaMail}}" target="_top">{{MiTareaMail}}</a>
+		<br /> 
+        MiTarea - Plataforma para solicitar servicios | www.mitareaservices.com
+		<br />
+		Trabajamos para que la solución de tus problemas sea más rápida, sencilla y de calidad
+        <br />
+        <br />
+        <small>Este correo fue enviado el {{FechaEnvioCorreo}} al propietario de la tarea ({{PropietarioTarea}}) y al postulante ({{NombrePostulante}})</small>
+    </body>
+</html>

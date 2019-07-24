@@ -1,0 +1,226 @@
+﻿@model GestorInventarioEmpresas.BackEnd.Domain.Entities.Proyect
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-border panel-primary">
+            <div class="panel-heading"><h3 class="panel-title">Editar el Proyecto:<strong> @Html.DisplayFor(model => model.Name) </strong> </h3></div>
+
+            <div class="panel-body">
+                <div class="form">
+                    <form id="edit_form" method="post" action="" class="cmxform form-horizontal tasi-form">
+                        <input type="text" class="form-control text-box single-line hidden" id="Id" name="Id" value="@Html.DisplayFor(model => model.Id)"></input>
+
+                        <div class="form-group">
+                            <label for="cname" class="control-label col-lg-2">Código</label>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control text-box single-line" id="Code" name="Code" readonly value="@Html.DisplayFor(model => model.Code)"></input>
+                            </div>
+                            <div class="col-md-2">
+                                <label style="padding-top: 6px;">(*)</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cname" class="control-label col-lg-2">Descripción</label>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control text-box single-line" id="Name" name="Name" value="@Html.DisplayFor(model => model.Name)"></input>
+                            </div>
+                            <div class="col-md-2">
+                                <label style="padding-top: 6px;">(*)</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cname" class="control-label col-lg-2">Tipo</label>
+                            <div class="col-lg-6">
+                                @Html.EnumDropDownListFor(
+                                   x => x.TypeProyect,
+                                   new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
+
+                            </div>
+                        </div>
+                   
+                        <div class="form-group">
+                            <label for="cname" class="control-label col-lg-2">Activo</label>
+                            <div class="col-lg-6">
+                                @Html.CheckBoxFor(m => m.isActive)
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="cname" class="control-label col-lg-2">Facturable</label>
+                            <div class="col-lg-6">
+                                @Html.CheckBoxFor(m => m.billable)
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-6">
+                                <table class="table  table-striped table-bordered" id="TableCompanies" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:20px">
+                                                <input type="checkbox" class="checkbox" id="checkboxAll" onclick="CheckAll()">
+                                            </th>
+                                            <th>
+                                                <label> Todos</label>
+                                            </th>
+                                        </tr>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="btn btn-success" value="Editar">
+
+                        </div>
+                    </form>
+                </div> <!-- .form -->
+            </div> <!-- panel-body -->
+        </div> <!-- panel -->
+    </div> <!-- col -->
+
+</div> <!-- End row -->
+<div>
+    @Html.ActionLink("Volver", "Index")
+</div>
+@section scripts{
+    <script language="javascript">
+        $(document).ready(function () {
+
+            $("#TableCompanies").DataTable({
+                language: {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                "ordering": true,
+                "ajax": { "url": "/Projects/getAllCompanies", "dataSrc": "" },
+                "processing": false,
+                "serverSide": false,
+                "scrollY":        "400px",
+
+                "paging":         false,
+                columns: [
+                    {
+                        data: null, render: function (data, type, row, meta) {
+                            return '<input type="checkbox" id="'+data.Name+'" class="checkbox" onclick="ValidarCheckAll()">';
+                        }
+                    },
+                    { data: 'Name' }],
+         "initComplete": function(settings, json) {
+             $.ajax({
+                 url: "/Projects/getAllCompaniesForProyect", data: { id: $("#Id").val() }, success: function (result) {
+       $.each(result, function (i, v){
+        var selector = v.Name;
+        document.getElementById(selector).checked = true;
+        });
+    }});
+  }
+            });
+        });
+
+        function CheckAll() {
+            var enable = $('#TableCompanies .checkbox');
+            enable.prop('checked', $("#checkboxAll").is(':checked'));
+        }
+        function ValidarCheckAll() {
+            var enable = $('#checkboxAll');
+            $('.checkbox').each(function () {
+                if (!$(this).is(":checked")) {
+                    enable.prop('checked', false);
+                }
+            });
+
+        }
+        function ObtenerDataDeGrilla() {
+            var datosChekeadosEnGrilla = $("#TableCompanies  tbody input[type='checkbox']:checked");
+            var datosTotalesYaDepurados = [];
+            var tabla = $("#TableCompanies").DataTable();
+            $.each(datosChekeadosEnGrilla, function (index, value) {
+                datosTotalesYaDepurados.push(tabla.row($(value).closest('tr')).data());
+            });
+
+            return datosTotalesYaDepurados;
+        }
+
+        function EditarProyecto() {
+            var empresas = ObtenerDataDeGrilla();
+            if ((empresas.length > 0 & $("#TypeProyect").val() != 2) || (empresas.length == 0 & $("#TypeProyect").val() == 2)) {
+                $.ajax({
+                    url: "Edit",
+                    type: "POST",
+                    data: {
+                        Id: $("#Id").val(),
+                        Name: $("#Name").val(),
+                        Code: $("#Code").val(),
+                        TypeProyect: $("#TypeProyect").val(),
+                        Companies: empresas,
+                        Tasks: null,
+                        isActive: $("#isActive").is(':checked'),
+                        billable: $("#billable").is(':checked'),
+                        Location:$("#Location").val()
+                    },
+                    success: function (result) {
+                        window.location.href = "/Projects/";
+                    }
+                });
+            } else if (empresas.length== 0 & $("#TypeProyect").val() != 2) {
+                $.Notification.autoHideNotify('info', 'top right', 'Atención', 'No ha selecionado ninguna empresa aún');
+            } else {
+                $.Notification.autoHideNotify('info', 'top right', 'Atención', 'Un proyecto de tipo TimeOff no puede tener empresas asociadas');
+            }
+           
+        }
+        $('form[id="edit_form"]').validate({
+            rules: {
+                Name: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50,
+                },
+                Code: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 3,
+                }
+            },
+            messages: {
+                Name: {
+                    required: 'Este campo es requerido',
+                    minlength: 'El campo debe tener un mínimo de 3 caracteres alfanuméricos',
+                    maxlength: 'El campo debe tener un máximo de 50 caracteres alfanuméricos'
+                },
+                Code: {
+                    required: 'Este campo es requerido',
+                    minlength: 'El campo debe tener un mínimo de 3 caracteres alfanuméricos',
+                    maxlength: 'El campo debe tener un máximo de 3 caracteres alfanuméricos'
+                }
+            },
+            submitHandler: function (form) {
+                EditarProyecto();
+            }
+        });
+    </script>
+
+}

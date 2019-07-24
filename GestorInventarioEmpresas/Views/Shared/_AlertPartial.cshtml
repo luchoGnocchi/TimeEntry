@@ -1,0 +1,47 @@
+﻿
+@using GestorInventarioEmpresas.BackEnd.Commons.GlobalObjects;
+@using GestorInventarioEmpresas.BackEnd.Commons.Enums;
+@{
+    var alerts = TempData.ContainsKey("GestorInventarioAlerts")
+                ? (List<AlertObject>)TempData["GestorInventarioAlerts"]
+                : new List<AlertObject>();
+    if (TempData.ContainsKey("GestorInventarioAlerts"))
+    {
+        TempData["GestorInventarioAlerts"] = new List<AlertObject>();
+    }
+}
+<script type="text/javascript">
+
+@foreach (AlertObject alert in alerts)
+{
+ 
+    if (alert.AlertTypeEnum == AlertTypeEnum.Error)
+    {
+        <text>
+            AlertManager.CreateAlert("@alert.Message.ToString()", "@(alert.Title?.ToString() ?? "")").error();
+        </text>
+    }
+    else if (alert.AlertTypeEnum == AlertTypeEnum.Info)
+    {
+        <text>
+            AlertManager.CreateAlert("@alert.Message.ToString()", "@(alert.Title?.ToString() ?? "")").info();
+        </text>
+    }
+    else if (alert.AlertTypeEnum == AlertTypeEnum.Success)
+    {
+        <text>
+            AlertManager.CreateAlert("@alert.Message.ToString()", "@(alert.Title?.ToString() ?? "")").success();
+        </text>
+    }
+    else if (alert.AlertTypeEnum == AlertTypeEnum.Warning)
+    {
+        <text>
+            AlertManager.CreateAlert("@alert.Message.ToString()", "@(alert.Title?.ToString() ?? "")").warning();
+        </text>
+    }
+}
+
+@{
+    alerts = new List<AlertObject>();
+}
+</script>

@@ -1,0 +1,323 @@
+﻿
+@model IEnumerable<GestorInventarioEmpresas.BackEnd.Domain.Entities.Proyect>
+
+<div class="container">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+
+            <h3 class="panel-title">
+                REPORTE MENSUAL POR Empresa
+
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-4 ">
+                    <div class="input-group date" disabled="disabled">
+                        <input type="text" class="form-control" id="pikerMounth" readonly><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    </div>
+                </div>
+                <div class="col-lg-4" id="divCmbUser">
+                    <select id="cmbUser" class="select2 form-control" data-placeholder="Seleccione un usuario"></select>
+                </div>
+                <div class="col-lg-2">
+                    <button type="button" id="btnBuscar" class="btn btn-success waves-effect waves-light m-b-5"><i class="fa fa-search"></i>  Buscar</button>
+                </div>
+                <div class="col-lg-2">
+                    Total de horas  <span class="badge badge-success" id="mensual">0</span>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="panel panel-border panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Desempeño mensual</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-area-example" style="height: 300px"></div>
+                        </div>
+                    </div>
+                </div> <!-- col -->
+                <div class="col-lg-6 col-sm-12">
+                    <div class="panel panel-border panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                Asignación de esfuerzo
+                            </h3>
+
+                        </div>
+
+
+                        <div id="pie-chart" class="panel-body">
+                            <div id="pie-chart-container" class="flot-chart" style="height: 300px">
+                            </div>
+                        </div>
+                    </div> <!-- /Portlet -->
+                </div> <!-- end col -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="panel panel-border panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Detalle Diario
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            <table id="example" class="table  table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Fecha  </th>
+                        <th>Horas</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="panel panel-border panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Detalle Diario total
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            <table id="dataReporteFullDetalle" class="table  table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Horas</th>
+                        <th>Usuario</th>
+                        <th>Radicación</th>
+                        <th>Tipo Tarea</th>
+                        <th>Proyecto</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script language="javascript">
+        var table=null;
+        $(document).ready(function () {
+            var d = new Date();
+            var strDate = ("0" + (d.getDate())).slice(-2) + '-' +
+                    ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+
+            $("#pikerMounth").val(strDate);
+      $('.input-group').datepicker({
+          format: 'dd-mm-yyyy',
+          startView: 1,
+          minViewMode: 1,
+          maxViewMode: 2,
+          language: "es",
+          orientation: "top left",
+          autoclose: true,
+          toggleActive: true
+      });
+      $.ajax({
+
+          url: "/Reportes/getAllCompanies", success: function (result) {
+              var htmlSelectEmpresa = '<select class="sselect2-container select2 form-control" id="cmbCompany"  style="background: white; min-width: 104px">';
+
+              $.each(result, function (key, value) {
+                  htmlSelectEmpresa += '<option value="' + value.Id + '">' + value.Text + '</option>';
+              });
+              htmlSelectEmpresa += ' </select>';
+              $("#divCmbUser").html(htmlSelectEmpresa);
+              $("#cmbCompany").select2();
+              $("#btnBuscar").trigger("click");
+          }
+      });
+      addCommonListener({
+          selector: '#btnBuscar', 
+          callBack: function (event) {
+              BlockUIManager.block();
+              $.ajax({
+                  url: "/Reportes/getReportBasicByCompany",
+                  data: { dateString: $("#pikerMounth").val(), idCompany: $("#cmbCompany").val() },
+                  success: function (data) {
+                      $("#morris-area-example").html("");
+                      $("#mensual").html(data.HorasTotales);
+                      $.Dashboard.init(data);
+                      $.MorrisCharts.init(data);
+                  },
+
+              }).done(function () {
+                  BlockUIManager.unblock();
+              });;
+
+              $.ajax({
+                  url: "/Reportes/getReportForTableByCompany",
+                  data: { dateString: $("#pikerMounth").val(), idCompany: $("#cmbCompany").val() },
+                    success: function (data) {
+                    /* Formatting function for row details - modify as you need */
+                      $('#example').DataTable().destroy();
+                        table = $('#example').DataTable({
+                          dom: 'Bfrtip',
+                          buttons: [
+                               { extend: 'pdf', className: 'btn btn-primary   waves-effect waves-light' },
+                               { extend: 'excel', className: 'btn btn-primary   waves-effect waves-light' }
+                          ],
+                          language: {
+                              "sProcessing": "Procesando...",
+                              "sLengthMenu": "Mostrar _MENU_ registros",
+                              "sZeroRecords": "No se encontraron resultados",
+                              "sEmptyTable": "Ningún dato disponible en esta tabla",
+                              "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                              "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                              "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                              "sInfoPostFix": "",
+                              "sSearch": "Buscar:",
+                              "sUrl": "",
+                              "sInfoThousands": ",",
+                              "sLoadingRecords": "Cargando...",
+                              "oPaginate": {
+                                  "sFirst": "Primero",
+                                  "sLast": "Último",
+                                  "sNext": "Siguiente",
+                                  "sPrevious": "Anterior"
+                              },
+                              "oAria": {
+                                  "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                  "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                              }
+                          },
+                          data: data.data,
+                          "columns": [
+                              {
+                                  "className": 'details-control',
+                                  "orderable": false,
+                                  "data": null,
+                                  "defaultContent": ''
+                              },
+                              { "data": "date" },
+                              { "data": "data" }
+                          ],
+                          "order": [[1, 'asc']]
+                      });
+
+              $('#dataReporteFullDetalle').DataTable().destroy();
+              var table1 = $('#dataReporteFullDetalle').DataTable({
+                  dom: 'Bfrtip',
+
+                  buttons: [
+                           { extend: 'pdf', className: 'btn btn-primary   waves-effect waves-light' },
+                           { extend: 'excel', className: 'btn btn-primary   waves-effect waves-light' }
+                  ],
+                  language: {
+                      "sProcessing": "Procesando...",
+                      "sLengthMenu": "Mostrar _MENU_ registros",
+                      "sZeroRecords": "No se encontraron resultados",
+                      "sEmptyTable": "Ningún dato disponible en esta tabla",
+                      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                      "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                      "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                      "sInfoPostFix": "",
+                      "sSearch": "Buscar:",
+                      "sUrl": "",
+                      "sInfoThousands": ",",
+                      "sLoadingRecords": "Cargando...",
+                      "oPaginate": {
+                          "sFirst": "Primero",
+                          "sLast": "Último",
+                          "sNext": "Siguiente",
+                          "sPrevious": "Anterior"
+                      },
+                      "oAria": {
+                          "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                      }
+                  }, 
+                   data: data.dataReporteFullDetalle,
+                          "columns": [
+                              { "data": "date" },
+                              { "data": "data" },
+                              { "data": "user" },
+                              { "data": "locationEmployer" },
+                              { "data": "taskType"},
+                              { "data": "project" }
+                             // { "data": "locationProject" }
+                              
+                          ] ,
+                  "order": [[0, 'asc']]
+              });
+                  },
+
+              }).done(function () {
+               
+              });
+           
+         
+              addCommonListener({
+                  selector: 'td.details-control',
+
+                  callBack: function (event) {
+
+                      var tr = $(this).closest('tr');
+                      var row = table.row(tr);
+
+                      if (row.child.isShown()) {
+                          // This row is already open - close it
+                          row.child.hide();
+                          tr.removeClass('shown');
+                      }
+                      else {
+                          // Open this row
+                          row.child(format(row.data())).show();
+                          tr.addClass('shown');
+                      }
+                  }
+              });
+        function format(d) {
+                  console.log(d);
+                  // `d` is the original data object for the row
+                  var ret = '<table cellpadding="5" cellspacing="0" border="0" class="table  table-striped table-bordered" style="padding-left:50px;">  <thead>'+
+               '     <tr>                 '+
+               '         <th>Proyecto</th>        '+
+               '         <th>Empresa/s  </th> ' +
+               '         <th>Tipo Tarea </th> ' +
+               '         <th>Horas</th>   '+
+               '     </tr>                '+
+               ' </thead>';
+                  $.each(d.list, function (r,e) {
+                      console.log(e);
+                      ret += '<tr>' +
+                          '<td>' + e.project + '</td>' +
+                       '<td>' + e.company + '</td>' +
+                      '<td>' + e.taskType + '</td>' +
+                      '<td>' + e.data + '</td>' +
+                      '</tr>';
+                  });
+                  ret += '</table>';
+                  return ret;
+              }
+
+          }
+      });
+
+        });
+
+    </script>
+    <script src="~/Vendor/plugins/morris.js/morris.min.js"></script>
+    <script src="~/Vendor/plugins/raphael/raphael-min.js"></script>
+
+    <script src="~/ModulosJs/reporteGrafica.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+}

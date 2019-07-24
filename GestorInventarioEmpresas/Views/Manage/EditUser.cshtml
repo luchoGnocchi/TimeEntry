@@ -1,0 +1,85 @@
+﻿@model GestorInventarioEmpresas.Models.RegisterViewModel
+@using (Html.BeginForm("EditUser", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+ 
+    @Html.AntiForgeryToken()
+<div class="panel panel-border panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Editar Usuario</h3>
+    </div>
+    <div class="panel-body">
+        <div class="form-horizontal">
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Rol", new { @class = "col-md-2 control-label" })
+                <div class="col-md-3">
+                    @Html.DropDownListFor(n => n.UserRoles, Model.UserRolesItems)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Tipo funcionario", new { @class = "col-md-2 control-label" })
+                <div class="col-md-3">
+                    @*@Html.DropDownList("Name")*@
+                    @* @Html.DropDownList(m => m.User, (SelectList)ViewBag.Name, new { style = "width:100%;" })*@
+                    @*@Html.DropDownListFor(n => n.UserRoles, (SelectList)ViewBag.Name, "xxx")*@
+                    @*@Html.DropDownListFor(n => n.UserRoles, Model.UserRolesItem, "Please select an order template")*@
+                    @Html.EnumDropDownListFor(n => n.TypeEmployer)
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="cname" class="control-label col-lg-2">Ubicación</label>
+                <div class="col-lg-6">
+                    @Html.EnumDropDownListFor(
+                    x => x.Location,
+                    new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-success" value="Editar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            }
+
+            @section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+                <script>
+        $(document).ready(function () {
+            //The url we will send our get request to
+            $("#UserRoles").select2({
+                placeholder: 'Seleccione un rol',
+                minimumResultsForSearch: -1
+            });
+            $("#TypeEmployer").select2({
+                placeholder: 'Seleccione un rol',
+                minimumResultsForSearch: -1
+            });
+        });
+
+                </script>
+            }

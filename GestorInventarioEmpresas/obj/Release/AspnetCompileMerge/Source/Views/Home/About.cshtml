@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+<div class="row">
+
+    <!-- Area Chart -->
+    <div class="col-lg-12">
+        <div class="panel panel-border panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Area Chart</h3>
+            </div>
+            <div class="panel-body">
+                <div id="morris-area-example" style="height: 300px"></div>
+            </div>
+        </div>
+    </div> <!-- col -->
+</div>
+
+
+<p>Use this area to provide additional information.</p>
+
+@section scripts{
+    <script src="~/Vendor/plugins/morris.js/morris.min.js"></script>
+    <script src="~/Vendor/plugins/raphael/raphael-min.js"></script>
+    <script src="~/Vendor/pages/morris.init.js"></script>
+    <script language="javascript">
+        !function ($) {
+            "use strict";
+
+            var MorrisCharts = function () { };
+
+              //creates area chart
+            MorrisCharts.prototype.createAreaChart = function (element, pointSize, lineWidth, data, xkey, ykeys, labels, lineColors) {
+                Morris.Area({
+                    element: element,
+                    pointSize: 3,
+                    lineWidth: 0,
+                    data: data,
+                    xkey: xkey,
+                    ykeys: ykeys,
+                    labels: labels,
+                    resize: true,
+                    gridLineColor: '#eef0f2',
+                    lineColors: lineColors
+                });
+            },
+            //creates Bar chart
+                 MorrisCharts.prototype.init = function () {
+ 
+                //creating area chart
+                var $areaData = [
+                        { y: '2009', a: 10, b: 20, c: 20 },
+                        { y: '2010', a: 75, b: 65, c: 25 },
+                        { y: '2011', a: 50, b: 40, c: 20 },
+                        { y: '2012', a: 75, b: 65, c: 65 },
+                        { y: '2013', a: 50, b: 40, c: 140 },
+                        { y: '2014', a: 75, b: 65, c: 65 },
+                        { y: '2015', a: 90, b: 60, c: 60 }
+                ];
+                this.createAreaChart('morris-area-example', 0, 0, $areaData, 'y', ['a', 'b', 'c'], ['Series A', 'Series B', 'Series C'], ['#6e8cd7', '#dcdcdc' ,'#fffcdc']);
+ 
+           },
+            //init
+            $.MorrisCharts = new MorrisCharts, $.MorrisCharts.Constructor = MorrisCharts
+        }(window.jQuery),
+        $(document).ready(function () {
+            "use strict";
+            $.MorrisCharts.init();
+        } );
+
+    </script>
+}

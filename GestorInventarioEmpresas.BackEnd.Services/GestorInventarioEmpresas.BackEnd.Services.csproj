@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2A7DC71C-AC17-4FEE-AC88-E50E495C3FA5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GestorInventarioEmpresas.BackEnd.Services</RootNamespace>
+    <AssemblyName>GestorInventarioEmpresas.BackEnd.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\Generics\GenericService.cs" />
+    <Compile Include="Core\Interfaces\IService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\InstanceDay\InstanceDayService.cs" />
+    <Compile Include="Services\InstanceDay\IInstanceDayService.cs" />
+    <Compile Include="Services\TaskType\ITaskTypeService.cs" />
+    <Compile Include="Services\TaskType\TaskTypeService.cs" />
+    <Compile Include="Services\WorkDay\WorkDayService.cs" />
+    <Compile Include="Services\WorkDay\IWorkDayService.cs" />
+    <Compile Include="Services\Company\ICompanyService.cs" />
+    <Compile Include="Services\Company\CompanyService.cs" />
+    <Compile Include="Services\Proyect\IProyectService.cs" />
+    <Compile Include="Services\User\IUserService.cs" />
+    <Compile Include="Services\Proyect\ProyectService.cs" />
+    <Compile Include="Services\User\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GestorInventarioEmpresas.BackEnd.DAL\GestorInventarioEmpresas.BackEnd.DAL.csproj">
+      <Project>{ADEB6A3F-F199-4261-9FD8-848CC40A317E}</Project>
+      <Name>GestorInventarioEmpresas.BackEnd.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GestorInventarioEmpresas.BackEnd.Domain\GestorInventarioEmpresas.BackEnd.Domain.csproj">
+      <Project>{09D7BC06-F0AE-4086-A844-FCCE800837D6}</Project>
+      <Name>GestorInventarioEmpresas.BackEnd.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

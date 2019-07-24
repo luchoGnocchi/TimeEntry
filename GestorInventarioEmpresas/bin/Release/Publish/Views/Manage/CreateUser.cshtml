@@ -1,0 +1,74 @@
+﻿@model GestorInventarioEmpresas.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Ingresar nuevo usuario";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("CreateUser", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new account.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+
+        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    @*<div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+        <div class="col-md-4">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", style = "width:100%; !important" })
+        </div>
+    </div>*@
+    <div class="form-group">
+        @Html.Label("Rol", new { @class = "col-md-2 control-label" })
+        <div class="col-md-3">
+            @*@Html.DropDownList("Name")*@
+            @* @Html.DropDownList(m => m.User, (SelectList)ViewBag.Name, new { style = "width:100%;" })*@
+            @*@Html.DropDownListFor(n => n.UserRoles, (SelectList)ViewBag.Name, "xxx")*@
+            @*@Html.DropDownListFor(n => n.UserRoles, Model.UserRolesItem, "Please select an order template")*@
+            @Html.DropDownListFor(n => n.UserRoles, Model.UserRolesItems)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-success" value="Registrar" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            //The url we will send our get request to
+            $("#UserRoles").select2({
+                placeholder: 'Seleccione un rol',
+                minimumResultsForSearch: -1
+            });
+        });
+
+    </script>
+}

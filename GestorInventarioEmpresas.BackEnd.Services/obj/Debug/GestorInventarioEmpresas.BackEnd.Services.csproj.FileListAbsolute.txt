@@ -1,0 +1,43 @@
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Services.dll
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Services.pdb
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.DAL.dll
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\EntityFramework.dll
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Domain.dll
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.DAL.pdb
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.DAL.dll.config
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\EntityFramework.xml
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Domain.pdb
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\obj\Debug\GestorInventarioEmpresas.BackEnd.Services.csprojAssemblyReference.cache
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\obj\Debug\GestorInventarioEmpresas.BackEnd.Services.csproj.CoreCompileInputs.cache
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\obj\Debug\GestorInventarioEmpresas.BackEnd.Services.csproj.CopyComplete
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\obj\Debug\GestorInventarioEmpresas.BackEnd.Services.dll
+C:\Users\lgnocchi\source\repos\GestorInventarioEmpresas\GestorInventarioEmpresas.BackEnd.Services\obj\Debug\GestorInventarioEmpresas.BackEnd.Services.pdb
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Services.dll.config
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Services.dll
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Services.pdb
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.DAL.dll
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Domain.dll
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\EntityFramework.dll
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\Newtonsoft.Json.dll
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.DAL.pdb
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.DAL.dll.config
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Domain.pdb
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\EntityFramework.xml
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\Newtonsoft.Json.xml
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\obj\Debug\GestorInventarioEmpresas.BackEnd.Services.csprojAssemblyReference.cache
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\obj\Debug\GestorInventarioEmpresas.BackEnd.Services.csproj.CoreCompileInputs.cache
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\obj\Debug\GestorInventarioEmpresas.BackEnd.Services.csproj.CopyComplete
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\obj\Debug\GestorInventarioEmpresas.BackEnd.Services.dll
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\obj\Debug\GestorInventarioEmpresas.BackEnd.Services.pdb
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Commons.dll
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\Handlebars.dll
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Commons.pdb
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\GestorInventarioEmpresas.BackEnd.Commons.dll.config
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\EmailTemplates\Answer_Notificacion.html
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\EmailTemplates\Task_Notificacion.html
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\EmailTemplates\Question_Notificacion.html
+C:\Proyecto Urudata\ProyectosUrudata\Inventario de Aplicaciones\Trunk\GestorInventarioEmpresas.BackEnd.Services\bin\Debug\EmailTemplates\Postulation_Notificacion.html
